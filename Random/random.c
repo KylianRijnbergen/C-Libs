@@ -30,3 +30,11 @@ double randd_std_norm(void)
     /* Return random number */
     return rnd;    
 }
+
+/* Returns a random int between lb and ub. lb is included, ub is not. */ 
+int randint(int lb, int ub)
+{
+    int rnd = rand() % (ub-lb);
+    return lb + rnd;
+
+}
