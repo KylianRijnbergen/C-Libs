@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h> 
+#include <stdbool.h> 
 
 /* Function that prints a line to the console */
 void print_line(int len, int count)
@@ -26,4 +29,52 @@ int get_line_count(FILE* file) {
         }
     } while (c != EOF);
     return linecount;
+}
+
+/* Function that returns all integers in the FIRST line of file */
+int* get_line_ints(FILE* file) {
+    int* buffer; 
+    int MAX_INT_LEN = 11;
+    int current_int = 0;
+    size_t buff_size = 8; /* We start off with memory for 8 ints */  
+    buffer = malloc(sizeof(int) * buff_size);
+
+    char* charbuff;
+    charbuff = malloc(sizeof(char) * MAX_INT_LEN); /* We use 11 as an integer is at most 11 characters long (-2147483648) */
+    
+    char c;
+    int curr_character = 0;
+    int ctr = 0;
+    while(true) {
+        c = fgetc(file);
+        if (c == EOF) {
+            printf("End of file reached. Returning...\n");
+            buffer[current_int] = atoi(charbuff);
+            printf("Current integer is %d\n", buffer[current_int]);
+            free(charbuff);
+            return buffer;
+        } else if (c == '\n') {
+            printf("Newline character encountered.\n");
+            buffer[current_int] = atoi(charbuff);
+            printf("Current integer is %d\n", buffer[current_int]);
+            free(charbuff);
+            return buffer;
+        } else if (c == ',') {
+            /* If a comma is encountered, we are at a new integer and the previous one can be processed */ 
+            printf("Comma encountered. Processing integer\n");
+            buffer[current_int] = atoi(charbuff);
+            memset(charbuff, 0, MAX_INT_LEN);
+            printf("Current integer is %d\n", buffer[current_int]);
+            curr_character = 0;
+            current_int++;
+            if (current_int >= buff_size) {
+                buff_size *= 2;
+                buffer = realloc(buffer, buff_size * sizeof(int));
+                printf("Buffer about to overflow. Reallocating...\n");
+            }
+        } else {
+            charbuff[curr_character] = c;
+            curr_character++;
+        }
+    }
 }
