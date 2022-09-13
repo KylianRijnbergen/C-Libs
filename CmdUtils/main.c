@@ -34,7 +34,7 @@ void test_get_line_ints(void) {
     FILE* file;
     file = fopen("getlineints.txt", "r");
     int* ints;
-    ints = get_line_ints(file);
+    ints = get_line_ints(file, 2);
     printf("\n\n");
     for (int i = 0; i < 36; i++) { /* Our testfile has 36 ints */
         printf("%dth integer is %d\n", i, ints[i]);

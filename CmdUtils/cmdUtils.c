@@ -31,8 +31,8 @@ int get_line_count(FILE* file) {
     return linecount;
 }
 
-/* Function that returns all integers in the FIRST line of file */
-int* get_line_ints(FILE* file) {
+/* Function that returns all integers in a specific line of file */
+int* get_line_ints(FILE* file, int line_nr) {
     int* buffer; 
     int MAX_INT_LEN = 11;
     int current_int = 0;
@@ -44,7 +44,17 @@ int* get_line_ints(FILE* file) {
     
     char c;
     int curr_character = 0;
-    int ctr = 0;
+    int line_ctr = 0;
+    /* Skip first couple lines */ 
+    while (line_ctr < line_nr) { 
+        c = fgetc(file);
+        printf("Getting new char %c, \n");
+        if (c == '\n') {
+            line_ctr++;
+        }
+    }
+
+    /* Read line */ 
     while(true) {
         c = fgetc(file);
         if (c == EOF) {
@@ -52,12 +62,16 @@ int* get_line_ints(FILE* file) {
             buffer[current_int] = atoi(charbuff);
             printf("Current integer is %d\n", buffer[current_int]);
             free(charbuff);
+            current_int++;
+            buffer = realloc(buffer, current_int * sizeof(int));
             return buffer;
         } else if (c == '\n') {
             printf("Newline character encountered.\n");
             buffer[current_int] = atoi(charbuff);
             printf("Current integer is %d\n", buffer[current_int]);
             free(charbuff);
+            current_int++;
+            buffer = realloc(buffer, current_int * sizeof(int));
             return buffer;
         } else if (c == ',') {
             /* If a comma is encountered, we are at a new integer and the previous one can be processed */ 
