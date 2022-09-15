@@ -11,9 +11,13 @@ int main(int argc, char* argv) {
     // test_println();
     // test_countln();
     // test_get_line_ints();
-    test_get_line_floats();
+    int i = 0, repeats = 2;
+    do {
+        test_get_line_floats();
+        i++;
+    } while (i < repeats); 
     return 0;
-}
+}   
 
 /* Tests the print line function */ 
 void test_println(void) {
@@ -41,6 +45,7 @@ void test_get_line_ints(void) {
     for (int i = 0; i < 36; i++) { /* Our testfile has 36 ints */
         printf("%dth integer is %d\n", i, ints[i]);
     }
+    fclose(file);
 }
 
 void test_get_line_floats(void) {
