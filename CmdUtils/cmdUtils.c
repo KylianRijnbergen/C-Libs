@@ -94,7 +94,7 @@ int* get_line_ints(FILE* file, int line_nr) {
 }
 
 /* Function that returns all floats in a specific line of file */
-float* get_line_floats(FILE* file, long long line_nr) {
+float* get_line_floats(FILE* file, long long line_nr, int* nr_floats) {
     float* buffer; 
     static size_t MAX_FLOAT_LEN = 8; /* We start off with 8 chars per float as most floats have less than 8 significant digits. This is static and can be dynamically updated */ 
     long long current_float = 0;
@@ -127,6 +127,8 @@ float* get_line_floats(FILE* file, long long line_nr) {
             free(charbuff);
             current_float++;
             buffer = realloc(buffer, current_float * sizeof(float));
+            // printf("current float is %d\n", current_float);
+            *nr_floats = current_float;
             return buffer;
         } else if (c == '\n') {
             // printf("Newline character encountered.\n");
@@ -135,6 +137,8 @@ float* get_line_floats(FILE* file, long long line_nr) {
             free(charbuff);
             current_float++;
             buffer = realloc(buffer, current_float * sizeof(float));
+            *nr_floats = current_float;
+            // printf("current float is %d\n", current_float);
             return buffer;
         } else if (c == ',') {
             /* If a comma is encountered, we are at a new integer and the previous one can be processed */ 

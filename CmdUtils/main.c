@@ -52,9 +52,11 @@ void test_get_line_floats(void) {
     FILE* file;
     file = fopen("getlinefloats.txt", "r");
     float* floats;
-    floats = get_line_floats(file, 0);
-    for (int i = 0; i < 8; i++) {
+    int nr_floats = 0;
+    floats = get_line_floats(file, 0, &nr_floats);
+    for (int i = 0; i < nr_floats; i++) {
         printf("%dth float is %0.8f\n", i, floats[i]);
     }
+    printf("A total of %d floats was found\n", nr_floats);
     fclose(file);
 }
