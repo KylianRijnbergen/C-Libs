@@ -5,11 +5,13 @@ int main(int argc, char* argv);
 void test_println(void);
 void test_countln(void);
 void test_get_line_ints(void); 
+void test_get_line_floats(void);
 
 int main(int argc, char* argv) {
     // test_println();
     // test_countln();
-    test_get_line_ints();
+    // test_get_line_ints();
+    test_get_line_floats();
     return 0;
 }
 
@@ -39,4 +41,15 @@ void test_get_line_ints(void) {
     for (int i = 0; i < 36; i++) { /* Our testfile has 36 ints */
         printf("%dth integer is %d\n", i, ints[i]);
     }
+}
+
+void test_get_line_floats(void) {
+    FILE* file;
+    file = fopen("getlinefloats.txt", "r");
+    float* floats;
+    floats = get_line_floats(file, 0);
+    for (int i = 0; i < 8; i++) {
+        printf("%dth float is %0.8f\n", i, floats[i]);
+    }
+    fclose(file);
 }
