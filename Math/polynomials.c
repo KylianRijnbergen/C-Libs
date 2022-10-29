@@ -58,14 +58,14 @@ third_order_solutions solve_third_order(double a, double b, double c, double d) 
 	double alpha = ((double)(b)) / ((double)(3 * a));
 	complex beta; /* Second part */
 	beta.real = alpha;
-	beta.imag = 0;
+	beta.imag = (double)0;
 
 	sols.sol0 = add_complex(s, subtract_complex(t, beta));
 	
 	/* General part for second and third solutions */
 	complex v, gamma;
-	v.real = 0;
-	v.imag = sqrt(3) / 2;
+	v.real = (double)0;
+	v.imag = sqrt(3) / (double)2;
 	gamma = mult_complex(v, subtract_complex(s, t)); /* Third part */
 
 	complex delta; /* First part */

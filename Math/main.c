@@ -35,10 +35,10 @@ int main(int argc, char* argv) {
 
 
 	double alph, bet, gam, delt;
-	alph = 1;
-	bet = 5;
-	gam = -14;
-	delt = 0;
+	alph = 2;
+	bet = 8;
+	gam = 13;
+	delt = 6;
 	// printf("1st order: X = %f\n", solve_first_order(alph, bet).sol0);
 	// printf("2nd order: X = %f, or %f\n", solve_second_order(alph, bet, gam).sol0, solve_second_order(alph, bet, gam).sol1);
 	third_order_solutions sols;
